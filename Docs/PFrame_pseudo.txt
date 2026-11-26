@@ -1,0 +1,348 @@
+== Hauptfenster ==
+
+BEGINN PizzaFrame
+
+    Lege Farben und Schriftarten fest
+
+    Erstelle eine leere Warenkorbliste
+
+    Erstelle die benötigten GUI-Komponenten
+
+    Lege Fenstergröße und Fenstertitel fest
+
+    Verwende BorderLayout für das Hauptfenster
+
+    Erstelle die Seitenleiste
+    Platziere sie links (WEST)
+
+    Erstelle den Hauptbereich
+    Platziere ihn in der Mitte (CENTER)
+
+    Zeige die Bestelloberfläche an
+
+ENDE
+
+======================================================================================================/
+
+== Seitenleiste ==
+
+FUNKTION sidebar()
+
+    Erstelle ein JPanel für die Seitenleiste
+
+    Verwende BoxLayout mit Y_AXIS
+
+    Lege Hintergrundfarbe und Innenabstände fest
+
+    Erstelle das Pizza-Logo
+    Erstelle den Programmnamen
+
+    Füge Logo und Programmname hinzu
+
+    Erstelle ein weiteres JPanel für die Navigation
+
+    Verwende GridLayout:
+        4 Zeilen
+        1 Spalte
+        8 Pixel Abstand
+
+    Erstelle vier Buttons:
+        Bestellung
+        Bestellübersicht
+        Verwaltung
+        Beenden
+
+    Verbinde die Buttons mit ihren Funktionen
+
+    Füge die Navigation zur Seitenleiste hinzu
+
+    GIB Seitenleiste ZURÜCK
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Bestellen ==
+
+FUNKTION showOrder()
+
+    Entferne bisherige Inhalte aus dem Hauptbereich
+
+    Erstelle den Banner
+
+    Erstelle den Bestellbereich mit GridBagLayout
+
+    Füge folgende Bereiche hinzu:
+        Pizzaauswahl
+        Größenauswahl
+        Zusätzliche Zutaten
+        Pizza-Vorschaubild
+        Anzahl
+
+    Erstelle den Warenkorb
+
+    Platziere den Warenkorb rechts
+
+    Füge einen Scrollbereich hinzu
+
+    Aktualisiere das Pizza-Bild
+    Aktualisiere den Warenkorb
+
+    Zeichne die Benutzeroberfläche neu
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Pizzasorten anzeigen ==
+
+FUNKTION pizzaPanel()
+
+    Erstelle ein JPanel für die Pizzaauswahl
+
+    FÜR JEDE Pizza aus Pizza.values()
+
+        Erstelle einen RadioButton
+
+        Lade das passende Pizza-Bild
+
+        Zeige Namen und Grundpreis an
+
+        Zeige die Beschreibung an
+
+        Füge alle Elemente zur Pizza-Zeile hinzu
+
+        Füge die Pizza-Zeile zum Panel hinzu
+
+        WENN der RadioButton angeklickt wird
+            Aktualisiere das große Pizza-Bild
+        ENDE WENN
+
+    ENDE FÜR
+
+    Wähle Margherita als Standardpizza
+
+    GIB Pizza-Panel ZURÜCK
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Große und Extras Auswählen==
+
+FUNKTION sizePanel()
+
+    Erstelle ein Panel
+
+    Erstelle RadioButtons für:
+        Klein
+        Mittel
+        Groß
+
+    Füge alle RadioButtons zu einer ButtonGroup hinzu
+
+    Wähle Klein als Standardgröße
+
+    GIB Panel ZURÜCK
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+FUNKTION extrasPanel()
+
+    Erstelle ein Panel
+
+    FÜR JEDE zusätzliche Zutat
+
+        Erstelle eine Checkbox
+
+        Zeige Namen und Aufpreis an
+
+        Speichere die Checkbox in einer Map
+
+        Füge die Checkbox zum Panel hinzu
+
+    ENDE FÜR
+
+    GIB Panel ZURÜCK
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Pizza zum Warenkorb ==
+
+FUNKTION addToCart()
+
+    Ermittle die ausgewählte Pizza
+
+    Ermittle die ausgewählte Größe
+
+    Setze Preis auf den Grundpreis der Pizza
+
+    Addiere den Aufpreis der Größe
+
+    Erstelle einen Bestelltext
+
+    FÜR JEDE zusätzliche Zutat
+
+        WENN die Checkbox ausgewählt ist
+
+            Füge den Namen zum Bestelltext hinzu
+
+            Addiere den Aufpreis zum Preis
+
+        ENDE WENN
+
+    ENDE FÜR
+
+    Ermittle die gewünschte Anzahl
+
+    Gesamtpreis = Einzelpreis * Anzahl
+
+    Runde Gesamtpreis auf zwei Nachkommastellen
+
+    Erstelle eine neue Warenkorbposition
+
+    Speichere Bestelltext und Gesamtpreis
+
+    Füge die Position zur Warenkorbliste hinzu
+
+    Aktualisiere die Warenkorbanzeige
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Warenkorb aktualisieren ==
+
+FUNKTION refreshCart()
+
+    Entferne die bisher angezeigten Warenkorbzeilen
+
+    FÜR JEDE Position im Warenkorb
+
+        Erstelle ein neues JPanel
+
+        Zeige Bestelltext und Preis an
+
+        Erstelle einen Entfernen-Button
+
+        WENN Entfernen angeklickt wird
+
+            Entferne die Position aus der Liste
+
+            Aktualisiere den Warenkorb erneut
+
+        ENDE WENN
+
+        Füge die Zeile zur Anzeige hinzu
+
+    ENDE FÜR
+
+    Berechne den Gesamtpreis aller Positionen
+
+    Zeige den Gesamtpreis an
+
+    Aktualisiere die Benutzeroberfläche
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Bestellung enden ==
+
+FUNKTION checkout()
+
+    WENN der Warenkorb leer ist
+
+        Zeige eine Hinweismeldung
+
+        Beende die Funktion
+
+    ENDE WENN
+
+    VERSUCHE
+
+        Erstelle eine Liste mit den Bestelltexten
+
+        Ermittle den Gesamtpreis
+
+        Übergib die Daten an OrderStore.save()
+
+        Zeige eine Erfolgsmeldung
+
+        Leere den Warenkorb
+
+        Aktualisiere die Anzeige
+
+    BEI FEHLER
+
+        Zeige eine Fehlermeldung
+
+    ENDE VERSUCH
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Saved Bestellungen zeigen ==
+
+FUNKTION showHistory()
+
+    VERSUCHE
+
+        Lese gespeicherte Bestellungen mit OrderStore.read()
+
+        Erstelle einen JTextArea
+
+        Füge den Text in den JTextArea ein
+
+        Deaktiviere die Bearbeitung
+
+        Erstelle einen JScrollPane
+
+        Zeige die Bestellübersicht in einem Dialog
+
+    BEI FEHLER
+
+        Zeige eine Fehlermeldung
+
+    ENDE VERSUCH
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Bilder laden ==
+
+FUNKTION icon(Dateiname, Breite, Höhe)
+
+    VERSUCHE
+
+        Suche die Bilddatei im Ressourcenordner
+
+        WENN die Datei nicht existiert
+            Melde einen Fehler
+        ENDE WENN
+
+        Lese die Bilddatei ein
+
+        Skaliere das Bild auf die gewünschte Größe
+
+        Erstelle ein ImageIcon
+
+        GIB ImageIcon ZURÜCK
+
+    BEI FEHLER
+
+        Erstelle ein einfaches Ersatzbild
+
+        Schreibe "Bild nicht verfügbar" darauf
+
+        GIB Ersatzbild ZURÜCK
+
+    ENDE VERSUCH
+
+ENDE FUNKTION

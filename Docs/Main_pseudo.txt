@@ -1,0 +1,9 @@
+BEGINN
+
+    Starte die grafische Benutzeroberfläche
+
+    Erstelle ein neues PizzaFrame-Objekt
+
+    Mache das Fenster sichtbar
+
+ENDE

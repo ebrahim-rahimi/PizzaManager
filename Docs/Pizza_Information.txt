@@ -1,0 +1,192 @@
+PIZZAMANAGER – AUFBAU UND PROGRAMMLOGIK
+====================================
+Rafael Portela
+
+1. WAS MACHT DAS PROGRAMM?
+
+Der PizzaManager ist eine Java-Swing-Anwendung zur Bestellung von Pizzen.
+Benutzer können eine Pizzasorte, Größe, zusätzliche Zutaten und die gewünschte Anzahl auswählen.
+Die Bestellung wird in einem Warenkorb gesammelt und anschließend in einer CSV-Datei gespeichert.
+
+Das Projekt zeigt, wie objektorientierte Programmierung (OOP), grafische Benutzeroberflächen und Dateiverarbeitung
+zusammenarbeiten.
+
+
+2. AUFBAU DES PROJEKTS
+
+Main.java
+Startet das Programm und öffnet das Hauptfenster.
+
+Pizza.java
+Ein enum mit den verfügbaren Pizzasorten. Jede Pizza besitzt einen Namen, eine Beschreibung,
+einen Preis und einen Bilddateinamen.
+
+PizzaFrame.java
+Erstellt die grafische Benutzeroberfläche, verarbeitet Benutzereingaben, berechnet Preise und verwaltet den Warenkorb.
+
+OrderStore.java
+Speichert Bestellungen in einer CSV-Datei und liest gespeicherte Bestellungen wieder ein.
+
+Die Bilder befinden sich im Ressourcenordner /images.
+
+Durch diese Aufteilung hat jede Klasse eine eigene Aufgabe.
+Das macht den Code übersichtlicher und erleichtert spätere Änderungen.
+
+
+3. AUFBAU DER BENUTZEROBERFLÄCHE
+
+Die GUI wird mit JFrame und mehreren JPanels erstellt.
+
+JFrame ist das Hauptfenster der Anwendung. JPanels unterteilen dieses Fenster in kleinere Bereiche.
+
+Die Benutzeroberfläche besteht aus einer Seitenleiste, einem Banner, der Pizzaauswahl,
+den Einstellungen für Größe und Extras, einem Bildbereich und dem Warenkorb.
+
+Wir erstellen zuerst die größeren Bereiche und fügen anschließend die einzelnen Bedienelemente hinzu.
+
+
+4. WARUM VERWENDEN WIR VERSCHIEDENE LAYOUTMANAGER?
+
+BorderLayout:
+Teilt einen Container in NORTH, SOUTH, EAST, WEST und CENTER auf. Wir verwenden es für das Hauptfenster,
+den Banner und den Warenkorb, weil sich damit größere Bereiche einfach anordnen lassen.
+
+BoxLayout:
+Ordnet Elemente untereinander (Y_AXIS) oder nebeneinander (X_AXIS) an. Wir verwenden es beispielsweise für
+die Seitenleiste und die Checkboxen der zusätzlichen Zutaten.
+
+GridLayout:
+Ordnet Komponenten in einem gleichmäßigen Raster an. Die vier Navigationsbuttons verwenden GridLayout(4, 1, 0, 8).
+Dadurch erhalten alle Buttons dieselbe Größe und acht Pixel Abstand zueinander.
+
+GridBagLayout:
+Erlaubt eine flexible Anordnung mit unterschiedlichen Größen. Wir verwenden es im mittleren Bestellbereich,
+damit Pizzaauswahl, Größe, Extras, Bild und Anzahl sinnvoll nebeneinander und untereinander stehen.
+
+Jeder LayoutManager wurde passend zur jeweiligen Aufgabe gewählt.
+
+
+5. WICHTIGE SWING-KOMPONENTEN
+
+JLabel:
+Zeigt Texte oder Bilder an.
+
+JButton:
+Führt beim Anklicken eine Aktion aus.
+
+JRadioButton:
+Ermöglicht die Auswahl einer Option. Mit ButtonGroup stellen wir sicher,
+dass innerhalb einer Gruppe nur eine Option gleichzeitig ausgewählt werden kann.
+
+JCheckBox:
+Erlaubt mehrere unabhängige Auswahlen, beispielsweise zusätzliche Zutaten.
+
+JSpinner:
+Ermöglicht die Eingabe einer Anzahl innerhalb festgelegter Grenzen.
+
+JScrollPane:
+Macht Inhalte scrollbar, wenn der verfügbare Platz nicht ausreicht.
+
+JOptionPane:
+Zeigt Hinweise, Fehlermeldungen und Bestätigungen an.
+
+
+6. WIE FUNKTIONIERT DIE PIZZAAUSWAHL?
+
+Die verfügbaren Pizzasorten werden in Pizza.java definiert.
+
+PizzaFrame verwendet Pizza.values(), um alle Pizzasorten zu durchlaufen.
+Für jede Pizza werden ein RadioButton, ein Bild, der Name und der Preis angezeigt.
+
+Wählt der Benutzer eine Pizza aus, wird das große Vorschaubild aktualisiert.
+
+Dadurch müssen die Pizzasorten nicht einzeln in der GUI programmiert werden.
+
+
+7. WIE FUNKTIONIERT DIE PREISBERECHNUNG?
+
+Zuerst wird der Grundpreis der ausgewählten Pizza übernommen.
+
+Anschließend wird der Aufpreis für die Größe addiert.
+Danach werden die Preise aller ausgewählten Extras hinzugerechnet.
+
+Dieser Einzelpreis wird mit der gewünschten Anzahl multipliziert.
+
+Beispiel:
+Margherita: 7,50 €
+Größe Mittel: +1,50 €
+Extra Käse: +1,00 €
+Einzelpreis: 10,00 €
+Anzahl: 2
+Gesamtpreis: 20,00 €
+
+Die Methode addToCart() führt diese Berechnung aus und fügt die Bestellung dem Warenkorb hinzu.
+
+
+8. WIE FUNKTIONIERT DER WARENKORB?
+
+Jede Warenkorbposition wird als CartLine gespeichert. Dieses Objekt enthält eine Beschreibung und den berechneten Preis.
+
+Die Positionen werden in einer ArrayList gesammelt.
+
+Die Methode refreshCart() erstellt die sichtbare Warenkorbanzeige neu.
+Dabei werden die einzelnen Positionen und der aktuelle Gesamtpreis angezeigt.
+
+Benutzer können Positionen entfernen oder den gesamten Warenkorb leeren.
+
+
+9. WIE WERDEN BUTTONS MIT FUNKTIONEN VERBUNDEN?
+
+Swing verwendet sogenannte ActionListener.
+
+Ein ActionListener reagiert beispielsweise darauf, dass ein Benutzer einen Button anklickt.
+
+Beispiel:
+button.addActionListener(e -> addToCart());
+
+Beim Anklicken wird die Methode addToCart() ausgeführt.
+
+Dadurch verbinden wir die grafische Oberfläche mit der eigentlichen Programmlogik.
+
+
+10. WIE FUNKTIONIERT DIE DATENSPEICHERUNG?
+
+Beim Abschließen einer Bestellung ruft PizzaFrame die Methode save() aus OrderStore.java auf.
+
+OrderStore erstellt bei Bedarf den Speicherordner und schreibt die Bestellung in eine CSV-Datei.
+
+Gespeichert werden der Zeitpunkt, die bestellten Produkte und der Gesamtpreis.
+
+Über die Bestellübersicht können die gespeicherten Daten wieder gelesen und angezeigt werden.
+
+Die Dateiverarbeitung befindet sich bewusst in einer eigenen Klasse,
+damit PizzaFrame nicht sämtliche Aufgaben selbst übernehmen muss.
+
+
+11. WIE WERDEN BILDER GELADEN?
+
+Die Bilder werden aus dem Ressourcenordner /images geladen.
+
+Die Methode icon() verwendet getResourceAsStream(), um die Bilddateien zu finden.
+Anschließend werden sie eingelesen und mit Image.SCALE_SMOOTH auf die gewünschte Größe skaliert.
+
+Falls ein Bild fehlt oder nicht gelesen werden kann, wird stattdessen ein einfaches Ersatzbild angezeigt.
+
+
+12. WAS LERNEN WIR AUS DIESEM PROJEKT?
+
+Der PizzaManager zeigt, dass eine grafische Anwendung aus mehreren zusammenarbeitenden Bestandteilen besteht.
+
+Die Benutzeroberfläche zeigt Informationen an und nimmt Eingaben entgegen.
+Die Programmlogik verarbeitet diese Eingaben, berechnet Preise und verwaltet den Warenkorb.
+Eine separate Klasse übernimmt die Speicherung.
+
+Wichtig ist außerdem die Planung: Zuerst legen wir die Struktur fest,
+wählen geeignete LayoutManager und erstellen die Komponenten.
+Danach verbinden wir die Bedienelemente mit den benötigten Funktionen.
+
+MERKSATZ:
+Eine gut geplante Anwendung trennt ihre Aufgaben, verwendet passende LayoutManager und besteht aus kleinen,
+verständlichen Methoden. Dadurch wird der Code leichter zu lesen, zu testen und zu erweitern.
+
+=)

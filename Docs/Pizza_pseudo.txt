@@ -1,0 +1,27 @@
+Ein enum eignet sich hier, weil unsere Pizzasorten eine feste Auswahl bilden.
+Jede Sorte enthält die Informationen, die später in der Benutzeroberfläche benötigt werden.
+
+ENUM Pizza
+
+    Definiere Pizzasorten:
+        MARGHERITA
+        SALAMI
+        TONNO
+        VEGETARIA
+
+    Jede Pizzasorte besitzt:
+        Name
+        Beschreibung
+        Grundpreis
+        Bilddateiname
+
+    KONSTRUKTOR Pizza(Name, Beschreibung, Preis, Bild)
+
+        Speichere Name
+        Speichere Beschreibung
+        Speichere Preis
+        Speichere Bilddateiname
+
+    ENDE KONSTRUKTOR
+
+ENDE ENUM

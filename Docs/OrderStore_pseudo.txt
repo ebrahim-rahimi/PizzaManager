@@ -1,0 +1,48 @@
+== Bestellung Speichern ==
+
+FUNKTION save(Bestellliste, Gesamtpreis)
+
+    Ermittle den Speicherort der CSV-Datei
+
+    Erstelle den Speicherordner, falls notwendig
+
+    Öffne die CSV-Datei zum Anhängen
+
+    Ermittle das aktuelle Datum und die Uhrzeit
+
+    Bereite die Bestelldaten für CSV vor
+
+    Schreibe die Bestellung in die Datei:
+        Datum und Uhrzeit
+        Bestellte Produkte
+        Gesamtpreis
+
+    Schließe die Datei
+
+ENDE FUNKTION
+
+======================================================================================================/
+
+== Bestellung Lesen ==
+
+FUNKTION read()
+
+    Ermittle den Speicherort der CSV-Datei
+
+    WENN die Datei nicht existiert
+
+        GIB einen Hinweis zurück
+
+    SONST
+
+        Öffne die Datei
+
+        Lese die gespeicherten Bestellungen
+
+        Schließe die Datei
+
+        GIB den Dateiinhalt zurück
+
+    ENDE WENN
+
+ENDE FUNKTION
